@@ -1,1 +1,1 @@
-# mywallet-rocketseat
+# myWalletRocketseat
