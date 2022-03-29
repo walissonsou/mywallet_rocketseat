@@ -10,16 +10,36 @@ Amount,
 LastTransaction,
 } from './styles'
 
-export function HighLightCard(){
+interface Props {
+    title: string;
+    amount: string;
+    lastTransaction: string;
+    type: 'up' | 'down' | 'total'
+}
+
+const icon = {
+    up: 'arrow-upward',
+    down:'arrow-downward',
+    total :'attach-money'
+    
+}
+
+export function HighLightCard({
+    title,
+    amount,
+    lastTransaction,
+    type,
+
+} : Props){
     return (
-    <Container>
+    <Container type={type}>
         <Header> 
-            <Title>Entrada</Title>
-                <Icon name="input"/>
+            <Title type={type}>{title}</Title>
+                <Icon name={icon[type]} type={type} />
                 </Header>
                 <Footer>
-                    <Amount>R$ 17.400,00</Amount>
-                    <LastTransaction>Última entrada dia 13 de abril </LastTransaction>
+                    <Amount type={type}>{amount}</Amount>
+                    <LastTransaction type={type}>{lastTransaction}</LastTransaction>
                 </Footer>
             </Container>
     )

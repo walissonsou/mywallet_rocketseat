@@ -59,7 +59,7 @@ export const Icon = styled(MaterialIcons)`
 `;
 export const HighLightCards = styled.ScrollView.attrs({
     horizontal: true, // scroll
-    showsHorizontalScrollIndicator: true, //barrinha de rolagem
+    showsHorizontalScrollIndicator: false, //barrinha de rolagem
     contentContainerStyle: { paddingHorizontal: 24 },
 })`
     width: 100%;
