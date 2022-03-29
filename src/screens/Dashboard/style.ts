@@ -41,7 +41,7 @@ export const Photo = styled.Image`
     border-radius: 10px;
 `;
 export const User = styled.View`
-margin-left: 17px;
+    margin-left: 17px;
     `;
 export const UserGretting = styled.Text`
     font-family: ${({ theme }) => theme.fonts.regular };
@@ -62,11 +62,31 @@ export const HighLightCards = styled.ScrollView.attrs({
     showsHorizontalScrollIndicator: false, //barrinha de rolagem
     contentContainerStyle: { paddingHorizontal: 24 },
 })`
-    width: 100%;
-    position: absolute;
+    width:      100%;
+    position:   absolute;
     margin-top: ${RFPercentage(20)}px;
 
 `;
 
 
+export const Transactions = styled.View`
+    flex: 1;    
+    padding: 0 24px;
 
+    margin-top: ${RFPercentage(12)}px;
+    
+`; 
+
+
+export const Title = styled.Text`
+
+    
+    color:${({ theme }) => theme.colors.dark };
+    font-family: ${({ theme }) => theme.fonts.regular };
+    font-size:   ${RFValue(18)}px;
+
+    margin-bottom: 16px;
+` ;
+export const TransactionsList = styled.FlatList`
+
+`;

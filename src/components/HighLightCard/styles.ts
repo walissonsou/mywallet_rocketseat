@@ -11,13 +11,8 @@ interface TypeProps {
 
 export const Container = styled.View<TypeProps>`
 
-
 background-color: ${({ theme, type }) => 
 type === 'total' ? theme.colors.secondary : theme.colors.shape};
-
-
-
-
 
 width:${RFValue(300)}px;
 height:200px;
@@ -69,7 +64,7 @@ export const Amount = styled.Text<TypeProps>`
 font-family: ${({ theme }) => theme.fonts.medium };
 font-size: ${RFValue(32)}px;
 
-margin-top: 39px
+margin-top: 39px;
 color: ${({ theme, type }) => 
 type === 'total' ? theme.colors.shape : theme.colors.dark};
 
@@ -82,7 +77,7 @@ font-family: ${({ theme }) => theme.fonts.regular };
 
 font-size: ${RFValue(12)}px;
 color: ${({ theme, type }) => 
-type === 'total' ? theme.colors.shape : theme.colors.dark};;
+type === 'total' ? theme.colors.dark : theme.colors.dark};;
 `;
 
 
