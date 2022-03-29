@@ -1,9 +1,11 @@
 import React from 'react'
 
 import { HighLightCard } from '../../components/HighLightCard';
-import { TransactionsCards } from '../../components/TransactionsCards';
+import { TransactionsCards, TransactionsCardsProps } from '../../components/TransactionsCards';
 
 import {Text, View, } from 'react-native'
+
+
 import { 
     Container , 
     Header,
@@ -21,10 +23,27 @@ import {
 
 } from './style'
 
+export interface DataListProps extends TransactionsCardsProps {
+    id: string;
+}
+
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 
 export function Dashboard(){
-    const data = [{
+    
+    const data: DataListProps[] = [{
+        id: '1',
+        type: 'positive',
+        title:"Desenvolvimento de site" ,
+        amount:"R$ 12.000,00",
+        category:{
+            name: 'Vendas',
+            icon: 'attach-money',
+            },
+        date:"12-12-12"
+    },
+    {   id: '2',
+          type: 'negative',
         title:"Desenvolvimento de site" ,
         amount:"R$ 12.000,00",
         category:{
@@ -34,6 +53,8 @@ export function Dashboard(){
         date:"12-12-12"
     },
     {
+        id: '3',
+        type: 'positive',
         title:"Desenvolvimento de site" ,
         amount:"R$ 12.000,00",
         category:{
@@ -42,16 +63,8 @@ export function Dashboard(){
             },
         date:"12-12-12"
     },
-    {
-        title:"Desenvolvimento de site" ,
-        amount:"R$ 12.000,00",
-        category:{
-            name: 'Vendas',
-            icon: 'attach-money',
-            },
-        date:"12-12-12"
-    },
-    {
+    {  id: '4',
+         type: 'negative',
         title:"Desenvolvimento de site" ,
         amount:"R$ 12.000,00",
         category:{
@@ -108,11 +121,9 @@ export function Dashboard(){
                 <Title> Transações recentes </Title>
                 <TransactionsList 
                 data={data}
+                keyExtractor={item => item.id}
                 renderItem={({ item }) => <TransactionsCards data={item} /> }
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{
-                    paddingBottom: getBottomSpace()
-                }}
+                
                 />
            </Transactions>
             

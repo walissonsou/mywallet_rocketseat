@@ -2,7 +2,9 @@ import styled from "styled-components/native";
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
-
+interface AmountProps {
+    type: string;
+}
 
 export const Container = styled.View`
 
@@ -18,11 +20,13 @@ font-family: ${({ theme }) => theme.fonts.regular };
 font-size:   ${RFValue(14)}px;
 `; 
 
-export const Amount = styled.Text`
+export const Amount = styled.Text<AmountProps>`
 font-size:   ${RFValue(20)}px;
 margin-top: 2px;
 font-family: ${({ theme }) => theme.fonts.regular };
-color: ${({ theme}) => theme.colors.attention};
+
+color: ${({ theme, type}) =>
+type === 'positive' ? theme.colors.success : theme.colors.attention };
 
 `;
 export const Footer = styled.View`
