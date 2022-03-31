@@ -3,7 +3,7 @@ import React from 'react'
 import { HighLightCard } from '../../components/HighLightCard';
 import { TransactionsCards, TransactionsCardsProps } from '../../components/TransactionsCards';
 
-import {Text, View, } from 'react-native'
+
 
 
 import { 
