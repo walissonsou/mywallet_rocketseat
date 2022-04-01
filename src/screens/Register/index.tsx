@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { Button } from '../../components/Form/Button';
 
+import { Modal } from 'react-native'
+
+import { Button } from '../../components/Form/Button';
 import { Input } from '../../components/Form/index';
+
 import { TransactionTypeButton } from '../../components/Form/TransactionsTypeButton';
 import { CategorySelect } from '../../components/Form/CategorySelect';
 
@@ -11,12 +14,8 @@ import {
     Header,
     Form,
     Field,
-    TransactionTypes,
- 
-
-   
+    TransactionTypes,   
  } from './styles'
-
 export function Register() {
     const [ transactionType, setTransactionType] = useState('')
 
