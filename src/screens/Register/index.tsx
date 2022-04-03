@@ -65,7 +65,7 @@ function handleCloseModal () {
             </TransactionTypes>
                 <CategorySelectButton 
                     onPress={handleOpendModal}
-                    title="Cadastro" />
+                    title={category.name} />
                 </Field>
                 <Button title="Cadastrar" />
             </Form>       

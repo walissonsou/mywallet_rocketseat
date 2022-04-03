@@ -7,13 +7,13 @@ width: 100%;
 background-color: ${({ theme}) => theme.colors.secondary_light};
 
 padding:       16px 18px;
-border-radius: 5px;
+border-radius: 4px;
 
 margin-bottom: 10px;
 font-size:   ${RFValue(16)}px;
 font-family: ${({ theme }) => theme.fonts.medium};
 `;
 export const Form = styled.View`
-padding: 24px
+padding: 25px;
 
 `;

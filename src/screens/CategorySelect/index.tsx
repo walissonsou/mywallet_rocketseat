@@ -12,25 +12,26 @@ Name,
 Separator,
 Footer,    
 } from './styles'
+
 interface CategoryProps {
     key: string;
     name: string;
 }
-
 interface Props {
     category: CategoryProps;
     setCategory: (category: CategoryProps) => void;
     closeSelectCategory: () => void;
 }
-
 export function CategorySelect({
     category,
     setCategory,
     closeSelectCategory
 }:Props) {
+    function handleCategorySelect(category: CategoryProps){
+        setCategory(category);
+    }
     return (
     <Container>
-
         <Header> 
             <Title>
                 Categoria
@@ -42,7 +43,10 @@ export function CategorySelect({
         style={{ flex: 1, width: '100%'}}
         keyExtractor={(item) => item.key}
         renderItem={({ item }) => (
-          <Category>
+          <Category
+          onPress={() => handleCategorySelect(item)}
+          isActive={category.key === item.key}          
+          >
             <Icon name={item.icon} />
             <Name>{item.name}</Name>
           </Category>
@@ -50,10 +54,8 @@ export function CategorySelect({
         )}
         ItemSeparatorComponent={() => <Separator/>}
         />
-
         <Footer>
-           <Button 
-           
+           <Button            
            onPress={closeSelectCategory}
            title="Selecionar" />
         </Footer>
