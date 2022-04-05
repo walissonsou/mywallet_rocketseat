@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 
 import { Modal } from 'react-native'
+import { useForm } from 'react-hook-form'
 
 import { Button } from '../../components/Form/Button';
-import { Input } from '../../components/Form/index';
-
+import { Input } from '../../components/Form/Input/index';
+import { InputForm } from '../../components/Form/InputForm'
 import { TransactionTypeButton } from '../../components/Form/TransactionsTypeButton';
 import { CategorySelectButton } from '../../components/Form/CategorySelectButton';
 
@@ -18,18 +19,25 @@ import {
     Field,
     TransactionTypes,   
  } from './styles'
-export function Register() {
-    
+
+ interface FormData{
+     name: string;
+     amount: string,
+
+ }
+export function Register() {    
     const [ transactionType, setTransactionType] = useState('')
     const [ categoryModal, setCategoryModalOpen] = useState(false)
-
-    const [name, setName] = useState('')
-    const [amount, setAmount] = useState('')
 
     const [category, setCategory] = useState({
         key:'category',
         name: 'Categoria',
 });
+    const {
+        control,
+        handleSubmit,
+            } = useForm(); // extrair algumas propriedades relevantes do useForm
+
 function handleTransactionTypeButtonSelected(type: 'up' | 'down') {
     setTransactionType(type);
 }
@@ -40,30 +48,35 @@ function handleCloseModal () {
     setCategoryModalOpen(false)
 }
 
-function handleRegister () {
-const data = { 
-    name,
-    amount,
-    transactionType,
-    category: category.key
-}
+function handleRegister(form: FormData) {
+    const data = {
+        name: form.name,
+        amount: form.amount,
+        transactionType,
+        category: category.key,
+    }
 
-console.log(data)
-
-
+     console.log(data)
 }
     return (
+        
     <Container>            
             <Header>
                     <Title>Cadastro</Title>
             </Header>                    
             <Form>
-                <Field> 
-                <Input placeholder="Nome"
-                onChangeText={setName}
+                <Field>                     
+                <InputForm
+                name='name'
+                control={control}
+                placeholder="Nome"
+                autoCapitalize="words"
+                autoCorrect={false}                
                 />         
-                <Input placeholder="Valor"
-                onChangeText={setAmount}
+                <InputForm
+                name='amount'
+                control={control}
+                placeholder="Valor"                
                 
                 />    
             <TransactionTypes>
@@ -89,7 +102,7 @@ console.log(data)
                     title={category.name} />
                 </Field>
                 <Button title="Cadastrar"
-                onPress={handleRegister}
+                onPress={handleSubmit(handleRegister)}
                 
                 
                 />
