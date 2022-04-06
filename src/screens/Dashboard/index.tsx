@@ -3,9 +3,6 @@ import React from 'react'
 import { HighLightCard } from '../../components/HighLightCard';
 import { TransactionsCards, TransactionsCardsProps } from '../../components/TransactionsCards';
 
-
-
-
 import { 
     Container , 
     Header,
@@ -19,18 +16,15 @@ import {
     HighLightCards,
     Transactions,
     Title,
-    TransactionsList
+    TransactionsList,
+    LogoutButton
 
 } from './style'
 
 export interface DataListProps extends TransactionsCardsProps {
     id: string;
 }
-
-import { getBottomSpace } from 'react-native-iphone-x-helper';
-
-export function Dashboard(){
-    
+export function Dashboard(){    
     const data: DataListProps[] = [{
         id: '1',
         type: 'positive',
@@ -87,11 +81,12 @@ export function Dashboard(){
                             <UserName>Walisson</UserName>
                         </User>
                     </UserInfo>
-                    <Icon name='logout'/>
+
+                    <LogoutButton onPress={()=> {}}>
+                    <Icon name='logout'/>                 
+                     </LogoutButton>
                 </UserWrapper>
             </Header>
-
-
             <HighLightCards          
             >
             <HighLightCard 
@@ -111,22 +106,16 @@ export function Dashboard(){
                 amount="R$ 20" 
                 lastTransaction=" 23/04/2019"
                 type="total" 
-            />
-           
-            </HighLightCards>
-
-            
-            <Transactions>
-                
+            />           
+            </HighLightCards>           
+            <Transactions>                
                 <Title> Transações recentes </Title>
                 <TransactionsList 
                 data={data}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => <TransactionsCards data={item} /> }
-                
                 />
-           </Transactions>
-            
+           </Transactions>            
         </Container>
         
         
