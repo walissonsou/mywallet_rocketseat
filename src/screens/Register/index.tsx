@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 
-import { Modal } from 'react-native'
+import {
+    Modal,
+    TouchableWithoutFeedback,
+    Keyboard,
+    Alert, } from 'react-native'
 import { useForm } from 'react-hook-form'
+
+import * as Yup from "yup";
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import { Button } from '../../components/Form/Button';
 import { Input } from '../../components/Form/Input/index';
@@ -18,13 +25,20 @@ import {
     Form,
     Field,
     TransactionTypes,   
- } from './styles'
-
- interface FormData{
-     name: string;
-     amount: string,
-
- }
+ } from './styles';
+ 
+ export type FormData = {
+    [name: string]: any;
+  }
+  
+  const schema = Yup.object({
+    name: Yup.string().required("Nome é obrigatório"),
+    amount: Yup.number()
+      .typeError("Informe um valor númerico")
+      .positive("O valor não pode ser negativo")
+      .required("O valor é obrigatório"),
+  }).required();
+ 
 export function Register() {    
     const [ transactionType, setTransactionType] = useState('')
     const [ categoryModal, setCategoryModalOpen] = useState(false)
@@ -33,10 +47,13 @@ export function Register() {
         key:'category',
         name: 'Categoria',
 });
-    const {
-        control,
-        handleSubmit,
-            } = useForm(); // extrair algumas propriedades relevantes do useForm
+    const { 
+        control, 
+        handleSubmit, 
+        formState: { errors }        
+    } = useForm({
+                resolver: yupResolver(schema) 
+            }); 
 
 function handleTransactionTypeButtonSelected(type: 'up' | 'down') {
     setTransactionType(type);
@@ -48,19 +65,28 @@ function handleCloseModal () {
     setCategoryModalOpen(false)
 }
 
-function handleRegister(form: FormData) {
-    const data = {
-        name: form.name,
-        amount: form.amount,
-        transactionType,
-        category: category.key,
+function handleSubmitRegister(form: Partial<FormData>) { 
+    if(!transactionType) {
+      return Alert.alert('Selecione o tipo de transação');
     }
 
-     console.log(data)
-}
+    if(category.key === 'category') {
+      return Alert.alert('Selecione a categoria');
+    }
+
+    const dataFormRegister = {
+      name: form.name,
+      amount: form.amount,
+      transactionType,
+      category: category.key
+    }
+    console.log('Log: dataFormRegister', dataFormRegister)
+  }
     return (
+
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>    
+        <Container>       
         
-    <Container>            
             <Header>
                     <Title>Cadastro</Title>
             </Header>                    
@@ -71,13 +97,15 @@ function handleRegister(form: FormData) {
                 control={control}
                 placeholder="Nome"
                 autoCapitalize="words"
-                autoCorrect={false}                
+                autoCorrect={false}                 
+                error={ errors.name && errors.name.message}              
                 />         
                 <InputForm
                 name='amount'
                 control={control}
-                placeholder="Valor"                
-                
+                placeholder="Valor"
+                keyboardType="numeric"
+                error={ errors.amount && errors.amount.message}                 
                 />    
             <TransactionTypes>
 
@@ -102,10 +130,8 @@ function handleRegister(form: FormData) {
                     title={category.name} />
                 </Field>
                 <Button title="Cadastrar"
-                onPress={handleSubmit(handleRegister)}
-                
-                
-                />
+                onPress={handleSubmit(handleSubmitRegister)}
+                    />
             </Form>       
 
             <Modal visible={categoryModal}> 
@@ -114,8 +140,9 @@ function handleRegister(form: FormData) {
             setCategory={setCategory}
             closeSelectCategory={handleCloseModal}             
             />
-            </Modal>       
-    </Container>
-
+            </Modal>   
+                  
+        </Container>
+    </TouchableWithoutFeedback>  
     )
 }

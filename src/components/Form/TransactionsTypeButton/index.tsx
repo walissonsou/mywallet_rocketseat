@@ -1,7 +1,7 @@
 import React from 'react-native';
 import { TouchableOpacityProps } from 'react-native';
 
-import { Feather } from '@expo/vector-icons'; 
+
 
 import { 
     Container,
@@ -16,10 +16,16 @@ const icons = {
 interface Props extends TouchableOpacityProps {
         title: string;
         type: 'up' | 'down';
+        isActive: boolean;
        
     }
 
-export function TransactionTypeButton ({type, title, ...rest}: Props){
+export function TransactionTypeButton ({
+    type,
+    title,
+    isActive,
+    ...rest
+}: Props){
     return (
 
 
